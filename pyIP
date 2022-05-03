@@ -1,0 +1,47 @@
+import requests
+
+while True:
+
+       try:
+              userIp = input("enter your ip: ")
+
+              url = f"https://ipinfo.io/{userIp}/geo"
+
+              req = requests.get(url)
+
+              rj = req.json()  # convert
+
+              print((f"entered ip: {rj['ip']} \n city: {rj['city']} \n "
+                     f"country: {rj['country']} \n timezone: {rj['timezone']}"
+                     ).replace('\n ', '\n'))
+
+              insert = "INSERT INTO User(ip,city,country,timezone) VALUES(%s,%s,%s,%s)"
+              val = (rj['ip'],rj['city'],rj['country'],rj['timezone'])
+
+              proceed = input("Do you want to proceed?(yes/no)")
+
+              if (proceed.lower() != "yes"):
+                     break
+
+
+
+       except:
+              print("The IP you entered was invalid")
+              proceed = input("Do you want to proceed?(yes/no)")
+
+              if (proceed.lower() != "yes"):
+                     break
+
+
+
+
+
+
+
+
+
+
+
+
+
+
